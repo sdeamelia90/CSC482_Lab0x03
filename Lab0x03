@@ -7,7 +7,7 @@ int list[10000000];
 int listDouble[10000000];
 
 void doBusyWork() {
-    for (int k = 0; k < 1; k++) {
+    for (int k = 0; k < 300; k++) {
         // Constant N
     }
 }
@@ -100,16 +100,16 @@ void printTable(int timeCount, double TIME[], int sort) {
             doubleRatio = TIME[i] / TIME[i - 1];
         }
         if (sort == 1) {
-            theoryRatio = 2 * log2(n) / (log2(n) - log2(2));
+            theoryRatio = 2;
         }
         else if (sort == 2) {
-            theoryRatio = 2 * log2(n) / (log2(n) - log2(2));
+            theoryRatio = 2;
         }
         else if (sort == 3) {
             theoryRatio = pow(n, log2(3)) / pow((n / 2), log2(3));
         }
         else if (sort == 4) {
-            theoryRatio = pow(2, n) / pow(2, (n / 2));
+            theoryRatio = pow((1 + pow(5, .5))/2, n) / pow((1 + pow(5, .5)) / 2, (n / 2));
         }
         printf("%12d %12lf %12.2lf %12.2lf\n", (int)n, TIME[i], doubleRatio, theoryRatio);
         n = n * 2;
@@ -120,9 +120,9 @@ int main(int argc, int argv) {
 
     double trialsTime_max = .250; // in seconds 
 
-    long long int trialsCount_max = 100000000, // increase as needed to avoid time measurements of zero 
+    long long int trialsCount_max = 1000000, // increase as needed to avoid time measurements of zero 
         N_min = 1,
-        N_max = 1000000, // adjust as needed, keep small for debugging 
+        N_max = 33, // adjust as needed, keep small for debugging 
         n,
         trial;
 
@@ -175,9 +175,9 @@ int main(int argc, int argv) {
 
             /**** >>>> Call the algorithm function we are testing, using the generated test input <<<<< ******/
             //algorith_A(n, list);
-            algorithm_B(n, list);
+            //algorithm_B(n, list);
             //algorithm_C(list, 0, n - 1);
-            //algorithm_D(n);
+            algorithm_D(n);
 
 
             /******* do any "clean up" after running your algorithm ********/
@@ -263,6 +263,6 @@ int main(int argc, int argv) {
         timeArr[timeCount] = estimatedTimePerTrial;
         timeCount++;
     }
-    printTable(timeCount, timeArr, 2);
+    printTable(timeCount, timeArr, 4);
 
 }
